@@ -8,5 +8,13 @@ def main():
     print(max_cals, top_three)
 
 
+def test_task1():
+    assert 1 == 1
+
+
+
+
+
+
 if __name__ == "__main__":    
     main()
