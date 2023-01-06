@@ -1,7 +1,9 @@
 name: Python package
 
 on: [push]
-
+defaults:
+  run:
+    working-directory: 2022
 jobs:
   build:
 
@@ -23,5 +25,4 @@ jobs:
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
       - name: Test with pytest
         run: |
-          cd 2022
           pytest day*.py
