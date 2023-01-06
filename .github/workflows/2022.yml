@@ -1,4 +1,4 @@
-name: Python package
+name: 2022
 
 on: [push]
 defaults:
