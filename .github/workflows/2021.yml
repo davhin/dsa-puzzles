@@ -1,9 +1,9 @@
-name: Advent of Code 2022
+name: Advent of Code 2021
 
 on: [push]
 defaults:
   run:
-    working-directory: 2022
+    working-directory: 2021
 jobs:
   build:
 

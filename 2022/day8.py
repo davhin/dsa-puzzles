@@ -1,10 +1,11 @@
+from utils import get_input_file
 import numpy as np
 
 def parse_input():
-    with open('/Users/david/projects/adventofcode/2022/day8_input.txt', 'r') as f:
-        trees = f.read().split("\n")[:-1]
-        trees = [list(treeline) for treeline in trees]
-        trees = [[int(t) for t in treeline] for treeline in trees]
+    input_file = get_input_file(2022, 'day8_input.txt')
+    trees = input_file.split("\n")[:-1]
+    trees = [list(treeline) for treeline in trees]
+    trees = [[int(t) for t in treeline] for treeline in trees]
     return trees
 
 
@@ -15,7 +16,7 @@ def find_hidden_trees(trees: list):
     from_top = []
 
 
-def test_find_hidden_trees():
+def test_day8():
     trees = [
         [3,0,3,7,3],
         [2,5,5,1,2],
@@ -28,9 +29,9 @@ def test_find_hidden_trees():
 
 if __name__ == "__main__":
     ##setup
-    test_find_hidden_trees()
+    test_day8()
     trees = parse_input()
     ##task 1
-    hidden_trees = find_hidden_trees(trees)
-    print(f"The number of hidden trees for tree houses is {hidden_trees}.")
+    n_hidden_trees = find_hidden_trees(trees)
+    print(f"The number of hidden trees for tree houses is {n_hidden_trees}.")
     ##task 2
