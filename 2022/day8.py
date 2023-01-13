@@ -9,14 +9,41 @@ def parse_input():
     return trees
 
 
-def find_hidden_trees(trees: list):
-    from_left = trees
-    from_right = [list(reversed(treeline)) for treeline in from_left]
-    from_top = [[] for _ in trees[0]]
+def transpose_grid(trees: list):
+    transposed = [[] for _ in trees[0]]
     for i in range(len(trees)):
         for j in range(len(trees[0])):
-            from_top[j].append(trees[i][j])
-    from_bottom = [list(reversed(treeline)) for treeline in from_top]
+            transposed[j].append(trees[i][j])
+    return transposed
+
+
+def reverse_grid(trees: list):
+    return [list(reversed(treeline)) for treeline in trees]
+
+
+def hidden_trees_from_side(trees: list):
+    hidden_trees = []
+    for line in trees:
+        hidden_trees_in_line = []
+        tree_max = 0
+        for tree in line:
+            if tree <= tree_max:
+                hidden_trees_in_line.append(1)
+            else:
+                hidden_trees_in_line.append(0)
+                tree_max = tree
+        hidden_trees.append(hidden_trees_in_line)
+    return hidden_trees
+
+def find_hidden_trees(trees: list):
+    from_left = hidden_trees_from_side(trees)
+    from_right = reverse_grid(hidden_trees_from_side(reverse_grid(trees)))
+    from_top = transpose_grid(hidden_trees_from_side(transpose_grid(trees)))
+    from_bottom = reverse_grid(transpose_grid(hidden_trees_from_side(transpose_grid(reverse_grid(trees)))))
+    print(from_left)
+    print(from_right)
+    #print(from_top)
+    #print(from_bottom)
 
 
 def test_day8():
