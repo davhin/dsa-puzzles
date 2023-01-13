@@ -1,16 +1,15 @@
 from utils import get_input_file
 
 def X_state(program: list):
-    X = [1]
-    add = None
-    for c in program:
-        if add:
-            X.append(X[-1] + add)
-            add = None
-        else:
-            X.append(X[-1])
+    X = [1,1]
+    for c in program: #should be sequential i guess, so each instruction ends before the next begins
+        last = X[-1]
         if c != 'noop':
             add = int(c.split(' ')[1])
+            X.append(last)
+            X.append(last+add)
+        else:
+            X.append(last)
     return X
 
 
@@ -26,7 +25,7 @@ def test_day10():
         "addx 13",
         "addx 4",
         "noop",
-        "addx -1",
+        "addx -1", #end of cycle 20 here
         "addx 5",
         "addx -1",
         "addx 5",
@@ -164,13 +163,15 @@ def test_day10():
         "noop",
         ]
     X_test = X_state(test_program)
-    print(X_test[20])
-    assert X_test[20] == 21
-
-
-
+    test_cycles = [20, 60, 100, 140, 180, 220]
+    test_signals = [X_test[cycle] for cycle in test_cycles]
+    assert test_signals == [21, 19, 18, 21, 16, 18]
 
 
 if __name__ == "__main__":    
     test_day10()
     program = get_input_file('day10_input.txt')
+    X = X_state(program)
+    cycles = [20, 60, 100, 140, 180, 220]
+    signal_strengths = [X[cycle]*cycle for cycle in cycles]
+    print(f"The sum of the signal strengths is {sum(signal_strengths)}")
